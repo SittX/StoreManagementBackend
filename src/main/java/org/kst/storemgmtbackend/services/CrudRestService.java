@@ -13,7 +13,7 @@ import java.util.List;
 public interface CrudRestService<T, ID> {
     T save(T t);
 
-    T findById(ID id);
+    T findById(ID id) throws DataNotFoundException;
 
     List<T> findAll(boolean paging, int limit, int offset);
 

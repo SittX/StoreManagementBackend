@@ -23,10 +23,10 @@ public class StoreService implements CrudRestService<Store, ObjectId> {
     }
 
     @Override
-    public Store findById(ObjectId objectId) {
+    public Store findById(ObjectId objectId) throws DataNotFoundException {
         return this.storeRepository
                 .findById(objectId)
-                .orElseThrow(() -> new IllegalArgumentException("Store not found"));
+                .orElseThrow(() -> new DataNotFoundException("Store not found"));
     }
 
     @Override
@@ -37,6 +37,11 @@ public class StoreService implements CrudRestService<Store, ObjectId> {
 
         PageRequest pageRequest = PageRequest.of(offset, limit);
         return this.storeRepository.findAll(pageRequest).getContent();
+    }
+
+    public Store findStoreByUserId(ObjectId userId){
+        // TODO: Find a way to search store if the user id is included in the Owner List
+        return Store.builder().build();
     }
 
     @Override

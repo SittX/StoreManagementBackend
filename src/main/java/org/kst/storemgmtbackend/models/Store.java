@@ -19,6 +19,7 @@ import java.util.Set;
 public class Store {
     @MongoId
     private ObjectId id;
+    private String name;
     private String description;
     private String remark;
     private ContactDetails contactDetails;

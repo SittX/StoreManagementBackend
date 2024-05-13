@@ -23,10 +23,20 @@ public class UserService implements CrudRestService<User, ObjectId> {
     }
 
     @Override
-    public User findById(ObjectId objectId) {
+    public User findById(ObjectId objectId) throws DataNotFoundException {
         return this.userRepository
                 .findById(objectId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new DataNotFoundException("User not found"));
+    }
+
+    public User findByUsername(String username) throws DataNotFoundException {
+        return this.userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new DataNotFoundException("User not found"));
+    }
+
+    public boolean checkUsernameExist(String username){
+        return this.userRepository.existsByUsername(username);
     }
 
     @Override

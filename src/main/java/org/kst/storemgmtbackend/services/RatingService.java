@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +26,14 @@ public class RatingService implements CrudRestService<Rating, ObjectId> {
         return this.ratingRepository
                 .findById(objectId)
                 .orElseThrow(() -> new IllegalArgumentException("Rating not found"));
+    }
+
+    public List<Rating> findRatingByUserId(ObjectId id) throws DataNotFoundException {
+        return this.ratingRepository.findByUser_Id(id).orElseThrow(() -> new DataNotFoundException("Rating for given User Id cannot be found"));
+    }
+
+    public List<Rating> findRatingByItemId(ObjectId id) throws DataNotFoundException {
+        return this.ratingRepository.findByItem_Id(id).orElseThrow(() -> new DataNotFoundException("Rating for given Item Id cannot be found"));
     }
 
     @Override
